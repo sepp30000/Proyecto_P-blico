@@ -100,3 +100,26 @@ lease time: 1800
 
 Salida internet
 [admin@MikroTik] /ip/firewall/nat> add action=masquerade chain=srcnat out-interface=ether1 
+
+
+## Conectar routers
+
+R-entrada
+[admin@MikroTik] /ip/address> add address=192.168.10.1/24 interface=ether2
+
+R-DMZ
+[admin@MikroTik] /ip/address> add address=192.168.10.2/24 interface=ether1
+
+Red DMZ
+
+ip address/add address=192.168.11.1/24 interface=ether2
+salida dmz
+[admin@MikroTik] /ip/firewall/nat> add action=masquerade chain=srcnat out-interface=ether1
+
+
+En el router dmz
+[admin@MikroTik] /ip/route> add gateway=192.168.10.1
+[admin@MikroTik] /ip/dns> set servers=8.8.8.8,1.1.1.1
+
+Configurar vpc internos para comprobar
+ip 192.168.11.100 255.255.255.0 192.168.11.1
