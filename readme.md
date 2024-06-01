@@ -4,7 +4,8 @@
     1. [¿Qué es lo que busca el cliente?](#----que-es-lo-que-nos-pide-el-cliente-----mejorar-el-titulo)
 2. [Montaje de la infraestructura de red](#montaje-de-la-infraestructura-de-red)
     1. [Presupuesto del proyecto](#presupuesto-del-proyecto)
-    2. [Configuración de los routers](#configución-de-los-routers)
+    2. [Configuración de la red](#configuración-de-la-red)
+        1. [Configuración de los routers](#configuración-de-los-routers)
 
 ## Introducción
 
@@ -70,12 +71,25 @@ Aquí nos encontramos con el presupuesto que le hemos realizado a la empresa con
 |-|-|-|-|
 |-|-|**Total: 15872,87€ IVA Incuido**|-|
 
-### Configución de los routers
+### Configuración de la red
 
-Continuamos con la configuración de los routers. En este caso nos encontramos con unos routers de la marca **Mikrotik** que utilizan el sistema operativo *Router OS* que nos permite una gran configuración y personalización.
+Continuamos con la configuración de la red. En este caso nos encontramos con unos routers de la marca **Mikrotik** que utilizan el sistema operativo *Router OS* que nos permite una gran configuración y personalización.
 
 Para ello realizaremos la configuración de los **2 routers** que hemos comprado.
 
 - Uno será el router de entrada/salida de internet.
 
 - El otro será un router será el encargado de separar a la  **DMZ** del resto de equipos. Haciendo una separación clara entre ellas.
+
+A parte de todo esto, crearemos diferentes VLANs que nos aportará una mayor seguridad, eficiencia y mejor gestión de las redes.
+
+#### Configuración de los routers
+
+Para configurar los routers lo vamos a dividir en dos partes:
+
+- Configuración de la **red interna de la empresa**, en la que entrará todo el apartado de las *VLAN* y la salida a internet de los equipos.
+
+- Configuración de la **DMZ**, donde se alojará los servidores y comprende el apartado de comuncicación entre los dos routers y la redirección de puertos.
+
+
+
