@@ -288,6 +288,8 @@ Ahora que docker es completamente funcional, es el momento de centrarse en la in
 
 Para montar este sistema de almacenamiento se usará NGINX, un servidor web muy utilizado y de código abierto. El primer paso será el montaje de la imagen del NGINX.
 
+1. Configuración
+
 **Dockerfile**
 ```bash
 # Imagen base utlizada
@@ -333,7 +335,7 @@ services:
     # Nombre del contenedor
     container_name: webdav
     # Nombre de la imagen o image id los dos funcionan
-    image: baae4d529811
+    image: seppwebdav:latest
     # Exposición de puertos
     ports:
       - 80:80
@@ -497,3 +499,38 @@ server {
   }
 }
 ```
+
+Con todo esto ya está preparada la configuración estos archivos serán guardados en un repositorio aparte [Inserta enlace del repositorio Webdav]() para poder guardarlo por si acaso.
+
+2. Levantar Docker
+
+Ahora que está preparado el entorno se puede levantar el servicio de web, para ello se creará la imagen del contenedor:
+
+```bash
+# Se hace dentro de la carpeta que está el dockerfile
+docker build -t seppwebdav:latest
+```
+Y ya se puede levantar el contenedor
+
+```bash
+docker compose up -d
+```
+
+Y comprobamos que el contenedor está levantado
+
+![alt image](Capturas/webdav1.png)
+
+3. Comprobar funcionamiento
+
+Ya levantado el contenedor, en este caso es en MACOSX, desde el finder nos dirigimos a **ir-conectarse a un servidor**. Desde allí ponemos la dirección de la puerta de enlace de nuestra red (ya que por la redirección de puertos nos mandará al servidor) y ya estaría preparado el WebDAV.
+
+![alt image](Capturas/webdav3.png)
+
+![alt image](Capturas/webdav4.png)
+
+### FTP
+
+
+
+
+
