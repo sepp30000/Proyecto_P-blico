@@ -73,23 +73,100 @@ Aquí nos encontramos con el presupuesto que le hemos realizado a la empresa con
 
 ### Configuración de la red
 
-Continuamos con la configuración de la red. En este caso nos encontramos con unos routers de la marca **Mikrotik** que utilizan el sistema operativo *Router OS* que nos permite una gran configuración y personalización.
+Ahora toca la configuración de la red. En este caso se realizará la configuración con unos routers de la marca **Mikrotik** que utilizan el sistema operativo *Router OS* que permite una gran configuración y personalización.
 
-Para ello realizaremos la configuración de los **2 routers** que hemos comprado.
+Para ello se realiza la configuración de los **2 routers** que se han comprado.
 
 - Uno será el router de entrada/salida de internet.
 
 - El otro será un router será el encargado de separar a la  **DMZ** del resto de equipos. Haciendo una separación clara entre ellas.
 
-A parte de todo esto, crearemos diferentes VLANs que nos aportará una mayor seguridad, eficiencia y mejor gestión de las redes.
+A parte de todo esto, se creará diferentes VLANs que aportará una mayor seguridad, eficiencia y mejor gestión de las redes.
 
 #### Configuración de los routers
 
-Para configurar los routers lo vamos a dividir en dos partes:
+Para configurar los routers se dividirá en dos partes:
 
 - Configuración de la **red interna de la empresa**, en la que entrará todo el apartado de las *VLAN* y la salida a internet de los equipos.
 
 - Configuración de la **DMZ**, donde se alojará los servidores y comprende el apartado de comuncicación entre los dos routers y la redirección de puertos.
 
+***Falta configuracion de puertos y del router
 
+
+
+#### Parte VPN
+
+Ahora que están los routers configurados y totalmente funcionales, llega el momento a montar una VPn. Una VPN es una herramienta de red que nos permite hacer una extensión de nuestra red local. Esto es muy útil porque gracias a esto se podrá entrar a nuestra red interna desde cualquier lugar. Además, solo estará abierto el puerto de la VPN desde afuera ya que solo se puede entrar a los servidores desde la red interna como se ha realizado anteriormente en la configuración de los routers, proporcionandonos, una mayor seguridad al proyecto.
+
+La VPN elegida para esta ocasión es **Wireguard**. **Wireguard** es una VPN creada en 2015, de código abierto y bastante popular en la comunidad. Una de las principales razones por las que hemos elegido **Wireguard** es la integración de esta VPN dentro de Mikrotik de manera nativa dentro de su S.O. *RouterOS* dando la fácilidad de configuración dentro del router. Dicho esto comienza la configuración.
+
+1. Actualizar el Router y creación de la interfaz de Wireguard
+
+El primer paso será realizar una actualización del router. Para eso comienza en:
+
+```bash
+# Busca si hay actualizaciones
+/system package update check-for-updates
+# Actualiza el S.O.
+/system package update install
+```
+
+Después de tener el sistema operativo actualizado, tocará crear la interfaz de la VPN y su red interna.
+
+***¡Muy importante!***. **Está configuración ha sido realizada con fines explicativos. Las claves públicas y privadas mostradas en este proyecto, ya no existen porque representarían un agujero de seguridad importante.**
+
+```bash
+# Esto a parte de hacer la interfaz de la vpn,creará una private y public key del servidor.
+/interface/wireguard add name=wg0 listen-port=51820
+```
+
+![alt image](Capturas/Wireguard-crearinterfaz.png)
+
+```bash
+# Creando la red de la VPN
+/ip/adress add address=192.168.23.2/24 network=192.168.23.0 interface=wg0
+```
+
+![alt image](Capturas/Wireguard-Direccion.png)
+
+Con esto ya estaría creada la interfaz de **Wireguard**
+
+2. Configuración del Firewall
+
+Continua con la configuración del firewall del router con el objetivo de que no solo se pueda entrar a nuestra red interna vía VPN.
+
+```bash
+# Bloquea cualquier acceso a la red
+/ip/firewall/filter add chain=forward action=drop
+# Permite el acceso tanto UDP como TCP el puerto configurado de nuestra VPN
+/ip/firewall/filter add chain=input action=accept protocol=udp dst-port=51820
+/ip/firewall/filter add chain=input action=accept protocol=tcp dst-port=51820
+# Habilita el acceso a internet al igual que hemos echo con las vlan creadas antes
+/ip/firewall/nat add chain=srcnat action=masquerade out-interface=wg0
+```
+
+3. Creción de la peer
+
+Ahora es el momento de la creación de la parte de *peer*. La primera parte será descargar [el cliente de wireguard](https://www.wireguard.com/install/) (En este caso el cliente de MACOSX). Después de instalar la aplicación, hay que hacer click en **crear un tunel vacio**, después se dentro de esta opción el nombre de la interfaz será el de la VPN "wg0" y se copia la clave pública.
+
+![alt image](Capturas/Wireguard-Cliente.png)
+
+![alt image](Capturas/Wireguard-Tunel-vacio.png)
+
+Ahora en la web de *Mikrotik* en el apartado **Wireguard/Peers** se crea una nueva peer.
+
+![alt image](Capturas/Wireguard-Peer.png)
+
+- Interface: Interfaz que utliza la peer. En este caso "wg0".
+
+- Public Key: La clave pública del cliente de Wireguard.
+
+- Allowed Address: La red que utilizará el cliente.
+
+Después de configurar la Peer se generá un código QR que se puede utilizar en el cliente para móviles. Pero en este caso la configuración se realizará de forma manual.
+
+![alt image](Capturas/Wireguard%20QR.png)
+
+4. Configuración del cliente
 
