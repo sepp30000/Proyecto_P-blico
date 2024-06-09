@@ -91,11 +91,127 @@ Para configurar los routers se dividirá en dos partes:
 
 - Configuración de la **DMZ**, donde se alojará los servidores y comprende el apartado de comuncicación entre los dos routers y la redirección de puertos.
 
-***Falta configuracion de puertos y del router
+1. Creación de las VLANs
+
+Cada departamento de la empresa va a tener su propia red:
+
+| Nombre | Dirección | Mascara | 
+|:------:|:--------:|:-------------:|
+|Administración y finanzas|192.168.23.0|24|
+|Técnicos|192.168.22.0|24|
+|Almacen|192.168.21.0|24|
+
+Para ello se hará uso de las VLANs. Esto permite crear redes lógicas independientes dentro de la misma red física.
+
+Todo esto se realizará en el Router-Entrada. La conexión entre routers será para más adelante. Para crear las VLANs lo primero será la configuración de los switches.
+
+| Nombre | Configuración |
+|:------:|:--------:|
+|Switch Técnicos|![alt image](Capturas/Switch%20Técnicos.png)|
+|Switch Administración|![alt image](Capturas/Switch%20administración.png)|
+|Switch Almacen|![alt image](Capturas/Switch%20Almacen.png)|
+|Switch Enlace|![alt image](Capturas/Siwtch%20enlace.png)|
 
 
 
-### Parte VPN
+Ahora en el router se crean las VLANs
+
+```bash
+/interface/vlan
+add name=tecnicos vlan-id=10 interface=ether3 
+add name=almacen vlan-id=20 interface=ether3 
+add name=administracion vlan-id=30 interface=ether3
+```
+
+![alt image](Capturas/vlan1.png)
+
+Y las interfaces de red
+
+```bash
+/ip/address
+add address=192.168.21.1/24 interface=tecnicos  
+add address=192.168.22.1/24 interface=almacen    
+add address=192.168.23.1/24 interface=administracion 
+```
+
+![alt image](Capturas/vlan2.png)
+
+Después de esto, los equipos pueden tener ip fija o que un servidor dhcp les asigne una dirección ip. Mikrotik dispone de uno y su configuración es:(Solo se enseña la de uno, el resto es igual)
+
+```bash
+/ip/dhcp-server
+setup
+
+Select interface to run DHCP server on 
+
+dhcp server interface:  
+administracion     almacen     ether1     ether2     ether3     ether4     ether5     ether6     ether7     ether8     tecnicos   
+dhcp server interface: tecnicos 
+Select network for DHCP addresses 
+
+dhcp address space: 192.168.21.0/24  
+Select gateway for given network 
+
+gateway for dhcp network: 192.168.21.1 
+Select pool of ip addresses given out by DHCP server 
+
+addresses to give out: 192.168.21.2-192.168.21.254, 
+Select DNS servers 
+
+dns servers: 8.8.8.8,1.1.1.1            
+Select lease time 
+
+lease time: 1800 
+```
+
+![alt image](Capturas/VLAN3.png)
+
+Finalmente se configura para que todas las interfaces internas salgan por la que está conectada a internet(**ether1**).
+
+```bash
+/ip/firewall/nat
+add action=masquerade chain=srcnat out-interface=ether1 
+```
+
+2. Conexión entre routers
+
+Ahora que está creada la red interna, el siguiente objetivo la conexión entre el **router-salida** y **router-DMZ**.
+
+En router-entrada se crea interfaz que conecte con DMZ
+
+```bash
+/ip/address
+add address=192.168.10.1/24 interface=ether2
+```
+
+En router-DMZ se crea la interfaz que conecte con entrada
+
+```bash
+/ip/address
+add address=192.168.10.2/24 interface=ether1
+```
+
+La salida a internet de manera similar a entrada,además de crear la red interna de la DMZ
+
+```bash
+/ip/firewall/nat/
+add action=masquerade chain=srcnat out-interface=ether1
+/ip/address
+add address=192.168.11.1/24 interface=ether2
+```
+
+Y la puerta de enlace entre los routers más los dns
+
+```bash
+/ip/route
+add gateway=192.168.10.1
+/ip/dns
+set servers=8.8.8.8,1.1.1.1
+```
+
+3. Port-Forwarding
+
+### VPN
 
 Ahora que están los routers configurados y totalmente funcionales, llega el momento a montar una VPn. Una VPN es una herramienta de red que nos permite hacer una extensión de nuestra red local. Esto es muy útil porque gracias a esto se podrá entrar a nuestra red interna desde cualquier lugar. Además, solo estará abierto el puerto de la VPN desde afuera ya que solo se puede entrar a los servidores desde la red interna como se ha realizado anteriormente en la configuración de los routers, proporcionandonos, una mayor seguridad al proyecto.
 
@@ -531,6 +647,8 @@ Ya levantado el contenedor, en este caso es en MACOSX, desde el finder nos dirig
 ### FTP
 
 
+
+## BBDD
 
 
 
