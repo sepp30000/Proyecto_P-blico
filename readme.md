@@ -71,7 +71,7 @@ Aquí nos encontramos con el presupuesto que le hemos realizado a la empresa con
 |-|-|-|-|
 |-|-|**Total: 15872,87€ IVA Incuido**|-|
 
-### Configuración de la red
+## Configuración de la red
 
 Ahora toca la configuración de la red. En este caso se realizará la configuración con unos routers de la marca **Mikrotik** que utilizan el sistema operativo *Router OS* que permite una gran configuración y personalización.
 
@@ -83,7 +83,7 @@ Para ello se realiza la configuración de los **2 routers** que se han comprado.
 
 A parte de todo esto, se creará diferentes VLANs que aportará una mayor seguridad, eficiencia y mejor gestión de las redes.
 
-#### Configuración de los routers
+### Configuración de los routers
 
 Para configurar los routers se dividirá en dos partes:
 
@@ -95,7 +95,7 @@ Para configurar los routers se dividirá en dos partes:
 
 
 
-#### Parte VPN
+### Parte VPN
 
 Ahora que están los routers configurados y totalmente funcionales, llega el momento a montar una VPn. Una VPN es una herramienta de red que nos permite hacer una extensión de nuestra red local. Esto es muy útil porque gracias a esto se podrá entrar a nuestra red interna desde cualquier lugar. Además, solo estará abierto el puerto de la VPN desde afuera ya que solo se puede entrar a los servidores desde la red interna como se ha realizado anteriormente en la configuración de los routers, proporcionandonos, una mayor seguridad al proyecto.
 
@@ -170,3 +170,118 @@ Después de configurar la Peer se generá un código QR que se puede utilizar en
 
 4. Configuración del cliente
 
+Finalmente falta la configuración del cliente. 
+
+```bash
+# Repesenta la configuración del equipo cliente
+[Interface]
+PrivateKey = [Generada por el cliente]
+# Direccion que ocupará el equipo
+Address = 192.168.23.3/24
+#DNS Será la puerta de enlace del router
+DNS = 192.168.23.2
+# Respecto al servidor
+[Peer]
+PublicKey = [Clave Pública del servidor]
+# Así permite cualquier ip de donde esté conectado el equipo
+AllowedIPs = 0.0.0.0/0
+# Donde tiene que llegar el equipo, si hubiera un dns dinamico sería esa direccion más el puerto
+Endpoint = 192.168.1.38:51820
+# Manda paquetes para saber si sigue conectado
+PersistentKeepalive = 10
+```
+
+![alt image](Capturas/Wireguard-ClienteConfigurado.png)
+
+
+Y finalmente se prueba la configuración
+
+![alt image](Capturas/Wireguard-ClienteFuncionando.png)
+
+![alt image](Capturas/Wireguard-Funcionando.png)
+
+---
+
+## Sistema de almacenamiento
+
+Terminada la parte de la red, llega la parte del almacenamiento. La empresa se le ha ofrecido una solución de almacenamiento interna por diversas razones:
+
+- Tener una backup interno de los que se suba en la nube. Aunque la empresa tiene contratada una solución de almacenamiento en la nube, quiere poder realizar copias de seguridad de sus datos cuando ellos quieran.
+
+- Las fotocopiadoras multifunción que reparan los técnicos utilizan para el escaneo diferentes opciones de almacenamiento (correo, ftp, pendrive...) y quieren realizar pruebas con ellas puesto que dependiendo donde vayan los equipos pueden usar opciones diferentes.
+
+Con estás razones expuestas por el cliente se le ofrecen dos opciones:
+
+- La creación de un servidor web **NGINX** que ofrezca un **WebDav** alojado en el servidor.
+
+- Un servidor FTPS alojado en el servidor.
+
+Estos dos servicios serán creados en docker con el objetivo de que puedan ser movidos al servidor de backup en caso de fallo.
+
+### Instalación de Docker
+
+El primer paso será la instalación de Docker en el servidor. Esto permite la creación de contenedores donde se podrán alojar los diferentes servicios que se van a ir alojando dentro del servidor.
+
+**Esta instalación se realizará en Ubuntu Server 24.04**
+
+1. Conexión por ssh
+
+```bash
+ssh sepp@192.168.11.11
+```
+
+2. Añadir clave oficial y repositorio oficial de **Docker**
+ 
+```bash
+# Añadir clave GPG oficial de docker:
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+```
+
+```bash
+# Añadir repositorio oficial a APT
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+```
+
+3. Instalación de Docker
+
+```bash
+# Docker y sus plugins incluido compose
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+4. Inicio de servicio
+
+```bash
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
+5. Hacer que no pida sudo cada vez que trabajamos con docker
+
+```bash
+sudo usermod -aG docker sepp
+newgrp docker
+```
+
+6. Probar funcionamiento
+
+```bash
+docker run hello-world
+```
+
+![alt image](Capturas/Docker-funciona.png)
+
+![alt image](Capturas/docker%20sin%20sudo.png)
+
+
+### WebDav
+
+Ahora que docker está 
