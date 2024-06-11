@@ -26,20 +26,23 @@
 
 ---
 ## Indice
-1. [Introducción](#Introducción)
-2. [¿Qué es lo que busca el cliente?](#que-es-lo-que-nos-pide-el-cliente)
-4. [Presupuesto del proyecto](#presupuesto-del-proyecto)
-5. [Montaje de la infraestructura de red](#montaje-de-la-infraestructura-de-red)    
-    1. [Configuración de la red](#configuración-de-la-red)
-    2. [Configuración de los routers](#configuración-de-los-routers)
-    3. [VPN](#VPN)
-6. [Sistemas de almacenamiento](#sistemas-de-almacenamiento)
-    1. [Instalación de Docker](#instalación-de-docker)
-    2. [WebDAV](#webdav)
-    3. [FTP](#ftp)
-1. [CRUD en Postgre](#crud-en-postgres)
-    1. [Creación de la BBDD](#creación-de-la-bbdd)
-    1. [Programación en PHP](#programación-en-php)
+- [Proyecto Final de CFGS de José Ramón Peris Murcia 2º ASIR](#proyecto-final-de-cfgs-de-josé-ramón-peris-murcia-2º-asir)
+  - [Indice](#indice)
+  - [Introducción](#introducción)
+  - [¿Que es lo que nos pide el cliente?](#que-es-lo-que-nos-pide-el-cliente)
+  - [Presupuesto del proyecto](#presupuesto-del-proyecto)
+  - [Montaje de la infraestructura de red](#montaje-de-la-infraestructura-de-red)
+    - [Configuración de la red](#configuración-de-la-red)
+    - [Configuración de los routers](#configuración-de-los-routers)
+    - [VPN](#vpn)
+  - [Sistema de almacenamiento](#sistema-de-almacenamiento)
+    - [Instalación de Docker](#instalación-de-docker)
+    - [WebDAV](#webdav)
+    - [FTP](#ftp)
+  - [CRUD en Postgres](#crud-en-postgres)
+    - [Creación de la BBDD](#creación-de-la-bbdd)
+    - [Programación en PHP](#programación-en-php)
+  - [Conclusiones](#conclusiones)
 ## Introducción
 
 En este proyecto se va a realizar la infraestructura de una empresa, en este caso será una empresa encargada de suministros escolares, material de oficina y reprografía (Gestión y reparación de máquinas fotocopiadoras).
@@ -897,6 +900,8 @@ Dentro de PgAdmin insertamos las credenciales y añadimos el servidor de Postgre
 
 Una vez conectado del servidor de Postgres, usamos el archivo **SQL**
 para utilizar nuestra BBDD
+
+![alt image](Capturas/bbddiseño.png)
 
 ```sql
 CREATE database Empresa;

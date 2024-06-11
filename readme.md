@@ -26,12 +26,23 @@
 
 ---
 ## Indice
-1. [Introducción](#Introducción)
-    1. [¿Qué es lo que busca el cliente?](#----que-es-lo-que-nos-pide-el-cliente-----mejorar-el-titulo)
-2. [Montaje de la infraestructura de red](#montaje-de-la-infraestructura-de-red)
-    1. [Presupuesto del proyecto](#presupuesto-del-proyecto)
-    2. [Configuración de la red](#configuración-de-la-red)
-        1. [Configuración de los routers](#configuración-de-los-routers)
+- [Proyecto Final de CFGS de José Ramón Peris Murcia 2º ASIR](#proyecto-final-de-cfgs-de-josé-ramón-peris-murcia-2º-asir)
+  - [Indice](#indice)
+  - [Introducción](#introducción)
+  - [¿Que es lo que nos pide el cliente?](#que-es-lo-que-nos-pide-el-cliente)
+  - [Presupuesto del proyecto](#presupuesto-del-proyecto)
+  - [Montaje de la infraestructura de red](#montaje-de-la-infraestructura-de-red)
+    - [Configuración de la red](#configuración-de-la-red)
+    - [Configuración de los routers](#configuración-de-los-routers)
+    - [VPN](#vpn)
+  - [Sistema de almacenamiento](#sistema-de-almacenamiento)
+    - [Instalación de Docker](#instalación-de-docker)
+    - [WebDAV](#webdav)
+    - [FTP](#ftp)
+  - [CRUD en Postgres](#crud-en-postgres)
+    - [Creación de la BBDD](#creación-de-la-bbdd)
+    - [Programación en PHP](#programación-en-php)
+  - [Conclusiones](#conclusiones)
 
 ## Introducción
 
@@ -890,6 +901,8 @@ Dentro de PgAdmin insertamos las credenciales y añadimos el servidor de Postgre
 
 Una vez conectado del servidor de Postgres, usamos el archivo **SQL**
 para utilizar nuestra BBDD
+
+![alt image](Capturas/bbddiseño.png)
 
 ```sql
 CREATE database Empresa;
