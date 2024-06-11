@@ -1,5 +1,31 @@
 # Proyecto Final de CFGS de José Ramón Peris Murcia 2º ASIR
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
+![Imagen](Capturas/Redes-de-FIbra-optica.jpg)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<center>José Ramón Peris</center>
+<center>Fecha: 11-06-2024</center>
+
+---
+## Indice
 1. [Introducción](#Introducción)
     1. [¿Qué es lo que busca el cliente?](#----que-es-lo-que-nos-pide-el-cliente-----mejorar-el-titulo)
 2. [Montaje de la infraestructura de red](#montaje-de-la-infraestructura-de-red)
@@ -9,25 +35,23 @@
 
 ## Introducción
 
-En este proyecto vamos a realizar la infraestructura de una empresa, en este caso será una empresa encargada de suministros escolares, material de oficina y reprografía (Gestión y reparación de máquinas fotocopiadoras).
+En este proyecto se va a realizar la infraestructura de una empresa, en este caso será una empresa encargada de suministros escolares, material de oficina y reprografía (Gestión y reparación de máquinas fotocopiadoras).
 
-Para ello nos vasaremos en los planos de la nave donde se encuentra la empresa y buscaremos **la mejor opción posible para realizar nuestro proyecto**.
+Para ello nos guiarse en los planos de la nave donde se encuentra la empresa y buscaremos **la mejor opción posible para realizar nuestro proyecto**.
 
 ![alt image](Capturas/Imagen-1.png)
 
-Como vemos en el plano de generado en GNS3 nos encontramos con una nave de **dos plantas**. En la primera planta nos encontramos con toda la parte del **almacen** donde se aloján los suministros escolares. El **departamento de técnicos de las máquinas fotocopiadoras**, donde se encargarán de la reparación y configuración de las máquinas fotocopiadoras y la zona donde ubicaremos la **DMZ**.
+Como se ve en el plano de generado en GNS3 nos encontramos con una nave de **dos plantas**. En la primera planta nos encontramos con toda la parte del **almacen** donde se aloján los suministros escolares. El **departamento de técnicos de las máquinas fotocopiadoras**, donde se encargarán de la reparación y configuración de las máquinas fotocopiadoras y la zona donde ubicaremos la **DMZ**.
 
 En la primera planta se ubicará **el departamento de admininstración y finanzas**.
 
-### ----¿Que es lo que nos pide el cliente?-----(Mejorar el titulo)
+## ¿Que es lo que nos pide el cliente?
 
 *El cliente busca que realicemos una actualización de su infraestructura de red y una digitalización del almacen, de la zona de técnicos y administración.*
 
-Para ello nostros les planteamos las siguientes propuestas:
+Para ello se le planteará las siguientes propuestas:
 
 - Levantar una infraestructura de red mediante la configuración de routers Mikrotik que realizará la salida de internet, firewall y portforwarding.
-
-- La creación de una aplicación web que permita hacer consultas sobre el stock que contiene el almacen de suministros y el stock de piezas para los técnicos.
 
 - La implantación de una aplicación de tareas para que los técnicos puedan realizar un seguimiento de las máquinas desde que entran al taller hasta que salen del mismo.
 
@@ -37,23 +61,11 @@ Para ello nostros les planteamos las siguientes propuestas:
 
 - La implantación de una VPN que permita acceder a estos servicios.
 
-La empresa acepta nuestra propuesta y nos pondremos **"Manos a la obra"**
+La empresa acepta la propuesta y da por comenzar el proyecto
 
-## Montaje de la infraestructura de red
+## Presupuesto del proyecto
 
-El primer paso que vamos a realizar es el montaje de la infraestructura de la red. Este consistirá en los siguientes puntos:
-
-- El montaje de un sistema de routers **Mikrotik** que se encargue del *enrutamiento de la infraestructura de la empresa.*
-
-- Implantación de un servicio de **DNSMasq** responsable de *la asignación de los dns y el dhcp.*
-
-- Configuración del **portforwarding** de los routers, buscando *una mayor seguridad y la redirección de los servicios a nuestra DMZ.*
-
-- Compra y preparación de equipos para almacen, técnicos así como administración y dmz.
-
-### Presupuesto del proyecto
-
-Después del estudio que hemos realizado en la nave, nos encontramos con que el *tema de infraestructura de cableado a sido montada con anterioridad al tratarse de una nave moderna.* Por lo tanto nosotros presupuestaremos tanto los equipos nuevos, la DMZ, y el tratamiento de switches, routers, etc.
+Después del estudio que hemos realizado en la nave, se encuentran con que el *tema de infraestructura de cableado a sido montada con anterioridad al tratarse de una nave moderna.* Por lo tanto se presupuesta tanto los equipos nuevos, la DMZ, y el tratamiento de switches, routers, etc.
 
 Aquí nos encontramos con el presupuesto que le hemos realizado a la empresa con todos sus enlaces en la web de **PcComponentes**:
 
@@ -71,7 +83,21 @@ Aquí nos encontramos con el presupuesto que le hemos realizado a la empresa con
 |-|-|-|-|
 |-|-|**Total: 15872,87€ IVA Incuido**|-|
 
-## Configuración de la red
+
+## Montaje de la infraestructura de red
+
+El primer paso a realizar es el montaje de la infraestructura de la red. Este consistirá en los siguientes puntos:
+
+- El montaje de un sistema de routers **Mikrotik** que se encargue del *enrutamiento de la infraestructura de la empresa.*
+
+- Implantación de un servicio de **DNSMasq** responsable de *la asignación de los dns y el dhcp.*
+
+- Configuración del **portforwarding** de los routers, buscando *una mayor seguridad y la redirección de los servicios a nuestra DMZ.*
+
+- Compra y preparación de equipos para almacen, técnicos así como administración y dmz.
+
+
+### Configuración de la red
 
 Ahora toca la configuración de la red. En este caso se realizará la configuración con unos routers de la marca **Mikrotik** que utilizan el sistema operativo *Router OS* que permite una gran configuración y personalización.
 
@@ -210,6 +236,70 @@ set servers=8.8.8.8,1.1.1.1
 ```
 
 3. Port-Forwarding
+
+Ahora que los routers se comunican, llega el momento de la redirección de puertos. El objetivo es que desde fuera de la red interna no se pueda acceder a la DMZ. Por lo tanto, el **Port-forwarding** es una gran opción.
+
+```bash
+# 192.168.21.1
+/ip/firewall/nat
+# WebDAV
+add chain=dstnat dst-address=192.168.21.1 protocol=tcp dst-port=80 action=dst-nat to-addresses=192.168.10.2 to-ports=80
+add chain=dstnat dst-address=192.168.21.1 protocol=tcp dst-port=443 action=dst-nat to-addresses=192.168.10.2 to-ports=443
+# Postgre
+add chain=dstnat dst-address=192.168.21.1 protocol=tcp dst-port=5432 action=dst-nat to-addresses=192.168.10.2 to-ports=5432
+# FTP
+add chain=dstnat dst-address=192.168.21.1 protocol=tcp dst-port=21 action=dst-nat to-addresses=192.168.10.2 to-ports=21
+# Puertos dinamicos
+add chain=dstnat dst-address=192.168.21.1 protocol=tcp dst-port=30000-31000 action=dst-nat to-addresses=192.168.10.2 to-ports=30000-31000
+# Teamvierwer
+add chain=dstnat dst-address=192.168.21.1 protocol=tcp dst-port=5938 action=dst-nat to-addresses=192.168.10.2 to-ports=5938
+# ssh
+add chain=dstnat dst-address=192.168.21.1 protocol=tcp dst-port=22 action=dst-nat to-addresses=192.168.10.2 to-ports=22
+# Pgadmin
+add chain=dstnat dst-address=192.168.21.1 protocol=tcp dst-port=5938 action=dst-nat to-addresses=192.168.10.2 to-ports=5050
+# PHP-Apache
+add chain=dstnat dst-address=192.168.21.1 protocol=tcp dst-port=5938 action=dst-nat to-addresses=192.168.10.2 to-ports=8080
+
+# 192.168.22.1
+/ip/firewall/nat
+# WebDAV
+add chain=dstnat dst-address=192.168.22.1 protocol=tcp dst-port=80 action=dst-nat to-addresses=192.168.10.2 to-ports=80
+add chain=dstnat dst-address=192.168.22.1 protocol=tcp dst-port=443 action=dst-nat to-addresses=192.168.10.2 to-ports=443
+# Postgre
+add chain=dstnat dst-address=192.168.22.1 protocol=tcp dst-port=5432 action=dst-nat to-addresses=192.168.10.2 to-ports=5432
+# FTP
+add chain=dstnat dst-address=192.168.22.1 protocol=tcp dst-port=21 action=dst-nat to-addresses=192.168.10.2 to-ports=21
+# Puertos dinamicos
+add chain=dstnat dst-address=192.168.22.1 protocol=tcp dst-port=30000-31000 action=dst-nat to-addresses=192.168.10.2 to-ports=30000-31000
+# Teamvierwer
+add chain=dstnat dst-address=192.168.22.1 protocol=tcp dst-port=5938 action=dst-nat to-addresses=192.168.10.2 to-ports=5938
+# ssh
+add chain=dstnat dst-address=192.168.22.1 protocol=tcp dst-port=22 action=dst-nat to-addresses=192.168.10.2 to-ports=22
+# Pgadmin
+add chain=dstnat dst-address=192.168.22.1 protocol=tcp dst-port=5938 action=dst-nat to-addresses=192.168.10.2 to-ports=5050
+# PHP-Apache
+add chain=dstnat dst-address=192.168.22.1 protocol=tcp dst-port=5938 action=dst-nat to-addresses=192.168.10.2 to-ports=8080
+
+# 192.168.23.1
+/ip/firewall/nat
+# WebDAV
+add chain=dstnat dst-address=192.168.23.1 protocol=tcp dst-port=80 action=dst-nat to-addresses=192.168.10.2 to-ports=80
+add chain=dstnat dst-address=192.168.23.1 protocol=tcp dst-port=443 action=dst-nat to-addresses=192.168.10.2 to-ports=443
+# Postgre
+add chain=dstnat dst-address=192.168.23.1 protocol=tcp dst-port=5432 action=dst-nat to-addresses=192.168.10.2 to-ports=5432
+# FTP
+add chain=dstnat dst-address=192.168.23.1 protocol=tcp dst-port=21 action=dst-nat to-addresses=192.168.10.2 to-ports=21
+# Puertos dinamicos
+add chain=dstnat dst-address=192.168.23.1 protocol=tcp dst-port=30000-31000 action=dst-nat to-addresses=192.168.10.2 to-ports=30000-31000
+# Teamvierwer
+add chain=dstnat dst-address=192.168.23.1 protocol=tcp dst-port=5938 action=dst-nat to-addresses=192.168.10.2 to-ports=5938
+# ssh
+add chain=dstnat dst-address=192.168.23.1 protocol=tcp dst-port=22 action=dst-nat to-addresses=192.168.10.2 to-ports=22
+# Pgadmin
+add chain=dstnat dst-address=192.168.23.1 protocol=tcp dst-port=5938 action=dst-nat to-addresses=192.168.10.2 to-ports=5050
+# PHP-Apache
+add chain=dstnat dst-address=192.168.23.1 protocol=tcp dst-port=5938 action=dst-nat to-addresses=192.168.10.2 to-ports=8080
+```
 
 ### VPN
 
@@ -616,7 +706,7 @@ server {
 }
 ```
 
-Con todo esto ya está preparada la configuración estos archivos serán guardados en un repositorio aparte [Inserta enlace del repositorio Webdav]() para poder guardarlo por si acaso.
+Con todo esto ya está preparada la configuración estos archivos serán guardados en un repositorio aparte [Repositorio Webdav](https://github.com/sepp30000/WEBDAV) para poder guardarlo por si acaso.
 
 2. Levantar Docker
 
@@ -646,9 +736,734 @@ Ya levantado el contenedor, en este caso es en MACOSX, desde el finder nos dirig
 
 ### FTP
 
+Ahora llega el momento del **FTP**, en este caso se va a realizar un FTPs también usando *Docker*. El repositorio se encuentra ubicado en el siguiente [enlace](https://github.com/sepp30000/FTP).
+
+Todo comienza con la creación de los certificados para en la máquina del servidor con el objetivo de que desde la creación de un volumen sean los mismos para el docker como el servidor
+
+```bash
+sudo su
+mkdir -p /etc/ssl/private
+openssl dhparam -out /etc/ssl/private/pure-ftpd-dhparams.pem 2048
+openssl req -x509 -nodes -newkey rsa:2048 -sha256 -keyout \
+    /etc/ssl/private/pure-ftpd.pem \
+    -out /etc/ssl/private/pure-ftpd.pem
+chmod 600 /etc/ssl/private/*.pem
+```
+
+El siguiente paso será crear el *docker-compose* del servidor FTP y levantarlo
+
+```bash
+services:
+  ftpd_server:
+    image: stilliard/pure-ftpd
+    container_name: pure-ftpd
+    ports:
+    # Redirección de puertos
+      - "21:21"
+      - "30000-30009:30000-30009"
+    volumes: 
+      # Creación del volumen del ftp
+      - "/home/sepp/ftps/ftp:/home/sepp/"
+      # Certificados
+      - "/etc/ssl/private/:/etc/ssl/private/"
+    environment:
+      FTP_USER_NAME: sepp
+      FTP_USER_PASS: mipass
+      FTP_USER_HOME: /home/sepp
+
+    restart: always
+```
+
+```bash
+docker compose up -d
+```
+
+Ahora desde Filezilla se comprueba el funcionamiento
+
+![alt image](Capturas/FTP.png)
+
+Nos aparecerá el certificado reconociéndolo 
+
+![alt image](Capturas/Certificado.png)
+
+Con esto ya tendríamos el FTP habilitado para usarse
+
+## CRUD en Postgres
+
+El último apartado del proyecto será la creación de una aplicación de tareas en **PostgreSQL y PHP** con el objetivo de tener un seguimiento de las tareas o incidencias de los técnicos. Todos los archivos serán incluidos en su [repositorio](https://github.com/sepp30000/CRUD).
+
+### Creación de la BBDD
+
+1. Levantar la infraestructura 
+
+Como en los casos del Sistema de almacenamiento, se usará **Docker** para crear la infraestructura del CRUD. 
+
+El primer paso es crear el **Dockerfile** de la imagen de *apache:php* utilizada con el objetivo de habilitar el PDO.
+
+```bash
+FROM php:apache
+# Instala el módulo de PDO para realizar el CRUD con PDO
+RUN apt-get update && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql
+```
+
+Ahora creada la imagen, se crea el **docker-compose**
+
+```bash
+version: '3.5'
+# Aunque salta que la version es vieja, funciona bien
+services:
+# La BBDD
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+# Nos es recomendable estas credenciales pero se pueden cambiar
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres:/var/lib/postgresql/data
+# Redirección de puertos
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+# PGAdmin, similar a PHPmyAdmin
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+# Similar al caso de postgre, no es recomendable estas credenciales
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+# Redirección de puertos
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+# Creación del contenedor php-apache
+  php:
+    container_name: php_container
+# Se construye a partir del Dockerfile    
+    build:
+      context: .
+      dockerfile: Dockerfile
+# Volumen que permite trabajar con la carpeta php dentro del contenedor
+    volumes:
+      - ./php:/var/www/html
+# Redirección de puertos
+    ports:
+      - "8080:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
+```
+
+2. Configurar PGAdmin e insertar la BBDD
+
+Con esto ya podemos levantar los contenedores e ir a la dirección ip para ver si se puede acceder a *PGAdmin*.
+
+```bash
+docker compose up -d
+```
 
 
-## BBDD
+![alt image](Capturas/iniciar-pgadmin.png)
+
+Dentro de PgAdmin insertamos las credenciales y añadimos el servidor de PostgreSQL.
+
+![alt image](Capturas/Conexionpgadmin.png)
+
+Una vez conectado del servidor de Postgres, usamos el archivo **SQL**
+para utilizar nuestra BBDD
+
+```sql
+CREATE database Empresa;
+
+-- Tabla de usuarios (técnicos)
+CREATE TABLE Usuarios (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(30) NOT NULL,
+    apellido_1 VARCHAR(50) NOT NULL,
+    apellido_2 VARCHAR(50) NOT NULL
+);
+
+-- Tabla de clientes
+CREATE TABLE Cliente (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+-- Tabla de fotocopiadoras
+CREATE TABLE Fotocopiadora (
+    id SERIAL PRIMARY KEY,
+    modelo VARCHAR(100) NOT NULL,
+    numero_serie VARCHAR(100) NOT NULL UNIQUE,
+    cliente_id INT REFERENCES Cliente(id)
+);
+
+-- Tabla de estados
+CREATE TABLE Estados (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- Tabla de tareas de reparación
+CREATE TABLE Tareas (
+    id SERIAL PRIMARY KEY,
+    titulo VARCHAR(100) NOT NULL,
+    descripcion TEXT NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_vencimiento DATE,
+    estado_id INT REFERENCES Estados(id),
+    fotocopiadora_id INT REFERENCES Fotocopiadora(id),
+    tecnico_id INT REFERENCES Usuarios(id)
+);
 
 
+-- Insercción de datos
+INSERT INTO Usuarios (nombre, apellido_1, apellido_2) VALUES
+('Juan', 'Pérez', 'González'),
+('María', 'García', 'Rodríguez'),
+('Carlos', 'Rodríguez', 'López'),
+('Ana', 'Martínez', 'Hernández'),
+('Luis', 'Hernández', 'Martín');
 
+INSERT INTO Cliente (nombre) VALUES
+('Empresa ABC'),
+('Instituto XYZ'),
+('Hospital Central'),
+('Biblioteca Municipal'),
+('Universidad Nacional');
+
+INSERT INTO Fotocopiadora (modelo, numero_serie, cliente_id) VALUES
+('HP LaserJet 1010', 'SN1234567890', 1),
+('Canon iR 1024', 'SN0987654321', 2),
+('Epson EcoTank L3150', 'SN1122334455', 3),
+('Brother DCP-L2550DW', 'SN6677889900', 4),
+('Samsung Xpress M2070', 'SN4433221100', 5);
+
+INSERT INTO Estados (nombre) VALUES
+('pendiente'),
+('en progreso'),
+('completada');
+
+INSERT INTO Tareas (titulo, descripcion, fecha_vencimiento, estado_id, fotocopiadora_id, tecnico_id) VALUES
+('Revisar cabezal de impresión', 'La impresora no imprime correctamente, revisar el cabezal.', '2024-06-30', 1, 1, 1),
+('Cambio de tóner', 'La fotocopiadora requiere un cambio de tóner.', '2024-07-15', 2, 2, 2),
+('Reparar bandeja de papel', 'La bandeja de papel está atascada y necesita reparación.', '2024-07-20', 1, 3, 3),
+('Actualizar firmware', 'Actualizar el firmware de la fotocopiadora.', '2024-08-01', 2, 4, 4),
+('Reemplazo de rodillo', 'El rodillo de la fotocopiadora está desgastado y necesita reemplazo.', '2024-08-10', 1, 5, 5);
+```
+
+3. Creación del CRUD
+
+Ya insertada la BBDD, se programará el php con el objetivo de crear un CRUD.
+
+Primeramente, se creará la conexión PDO.
+
+```php
+# Config.php
+<?php
+require 'config.php';
+# creación de la conexión pdo
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+#    echo "Conexión exitosa a la base de datos";
+} catch (PDOException $e) {
+    echo 'Error de conexión: ' . $e->getMessage();
+    die();
+}
+?>
+
+# Conexión.php
+<?php
+require 'config.php';
+# creación de la conexión pdo
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+    echo "Conexión exitosa a la base de datos";
+} catch (PDOException $e) {
+    echo 'Error de conexión: ' . $e->getMessage();
+    die();
+}
+?>
+```
+
+![alt image](Capturas/conexionphp.png)
+
+### Programación en PHP
+
+Ahora es el momento la web principal donde se encuentran los tiquets ya insertados anteriormente en la BBDD.
+
+```php
+?php
+require 'config/config.php'; // Incluye de conexión a la base de datos
+require 'config/conexion.php';
+
+// Consulta a la bbdd de la tarea
+$sql = "SELECT Tareas.*, Estados.nombre AS estado_nombre, Fotocopiadora.modelo AS fotocopiadora_modelo, Usuarios.nombre AS tecnico_nombre, Usuarios.apellido_1, Usuarios.apellido_2 
+        FROM Tareas
+        JOIN Estados ON Tareas.estado_id = Estados.id
+        JOIN Fotocopiadora ON Tareas.fotocopiadora_id = Fotocopiadora.id
+        JOIN Usuarios ON Tareas.tecnico_id = Usuarios.id";
+
+$stmt = $pdo->query($sql);
+
+
+$tareas = $stmt->fetchAll();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--link de bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>CRUD PROYECTO</title>
+</head>
+<body>
+    <br>
+    <div class="container">
+        <h1 class="text-center">GESTOR DE TAREAS</h1>
+    </div>
+    <br>
+    <div class="container">
+        <!-- Tabla bootstrap -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Fecha de creación</th>
+                    <th scope="col">Fecha de vencimiento</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fotocopiadora</th>
+                    <th scope="col">Técnico</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Abrimos el php -->
+                <?php foreach ($tareas as $tarea): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($tarea['id']); ?></td>
+                    <td><?php echo htmlspecialchars($tarea['titulo']); ?></td>
+                    <td><?php echo htmlspecialchars($tarea['descripcion']); ?></td>
+                    <td><?php echo htmlspecialchars(date('Y-m-d H:i:s', strtotime($tarea['fecha_creacion']))); ?></td>
+                    <td><?php echo htmlspecialchars(date('Y-m-d H:i:s', strtotime($tarea['fecha_vencimiento']))); ?></td>
+                    <td><?php echo htmlspecialchars($tarea['estado_nombre']); ?></td>
+                    <td><?php echo htmlspecialchars($tarea['fotocopiadora_modelo']); ?></td>
+                    <td><?php echo htmlspecialchars($tarea['tecnico_nombre'] . ' ' . $tarea['apellido_1'] . ' ' . $tarea['apellido_2']); ?></td>
+                    <td>
+                        <div class="d-flex flex-row">
+                                <a href="editar.php?id=<?php echo $tarea['id']; ?>" class="btn btn-warning custom-btn">Editar</a>
+                                <a href="crud/borrardatos.php?id=<?php echo $tarea['id']; ?>" class="btn btn-danger">Eliminar</a>
+                        </div>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+                
+            </tbody>
+        </table>
+        <a href="insertar.php" class="btn btn-success">Agregar Incidencia</a>
+    </div>
+    <!-- javascript bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+```
+<br>
+
+![alt image](Capturas/index.png)
+
+Le sigue el formulario de **Agregar Incidencias**
+
+*Insertar.php*
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agregar Tarea</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5 mb-4">Agregar Tarea</h1>
+        <form action="../crud/insertardatos.php" method="POST"> 
+            <div class="mb-3">
+                <label class="form-label">Título</label>
+                <input type="text" class="form-control" name="titulo">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea class="form-control" name="descripcion" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fecha de creación</label>
+                <input type="date" class="form-control" name="fecha_creacion" value="<?php echo date('Y-m-d'); ?>">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fecha de vencimiento</label>
+                <input type="date" class="form-control" name="fecha_vencimiento">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select class="form-select" name="estado">
+                    <option selected>Seleccionar estado</option>
+                    <?php
+                        // Conexión a la base de datos
+                        require_once("./config/config.php");
+
+                        try {
+                            $pdo = new PDO($dsn, $user, $pass, $options);
+                            
+                            // Select estados
+                            $sql = "SELECT * FROM Estados";
+                            $stmt = $pdo->query($sql);
+                            
+                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option value='".$row['id']."'>".$row['nombre']."</option>";
+                            }
+                        } catch (PDOException $e) {
+                            echo "Error: " . $e->getMessage();
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Técnico asignado</label>
+                <select class="form-select" name="tecnico_id">
+                    <option selected>Seleccionar técnico</option>
+                    <?php
+                        // Conexión a la bbdd
+                        require_once("./config/config.php");
+
+                        try {
+                            $pdo = new PDO($dsn, $user, $pass, $options);
+                            
+                            // Consulta para obtener los técnicos de la base de datos
+                            $sql = "SELECT * FROM Usuarios";
+                            $stmt = $pdo->query($sql);
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option value='".$row['id']."'>".$row['nombre']." ".$row['apellido_1']." ".$row['apellido_2']."</option>";
+                            }
+                        } catch (PDOException $e) {
+                            echo "Error: " . $e->getMessage();
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger">Agregar</button>
+                <a href="../index.php" class="btn btn-dark">Regresar</a>
+            </div>
+        </form>
+    </div>
+    <footer class="footer mt-5">
+        <div class="text-center">
+            <p>&copy; 2023 José Ramón Peris. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+```
+
+*insertardatos.php*
+
+```php
+<?php
+include("../config/config.php");
+include("../config/conexion.php");
+try {
+    $pdo->beginTransaction();
+
+    $sql_tareas = "INSERT INTO Tareas (titulo, descripcion, fecha_creacion, fecha_vencimiento, estado_id, fotocopiadora_id, tecnico_id) VALUES (:titulo, :descripcion, :fecha_creacion, :fecha_vencimient>
+    $stmt_tareas = $pdo->prepare($sql_tareas);
+    $stmt_tareas->bindParam(':titulo', $_POST['titulo']);
+    $stmt_tareas->bindParam(':descripcion', $_POST['descripcion']);
+    $stmt_tareas->bindParam(':fecha_creacion', $_POST['fecha_creacion']);
+    $stmt_tareas->bindParam(':fecha_vencimiento', $_POST['fecha_vencimiento']);
+    $stmt_tareas->bindParam(':estado_id', $_POST['estado_id']);
+    $stmt_tareas->bindParam(':fotocopiadora_id', $_POST['fotocopiadora_id']);
+    $stmt_tareas->bindParam(':tecnico_id', $_POST['tecnico_id']);
+    $stmt_tareas->execute();
+
+    // Mantiene la transacción
+    $pdo->commit();
+    echo '<script>alert("Datos insertados correctamente"); window.location.href="../index.php";</script>';
+} catch (PDOException $e) {
+    // Si falla hace rollback
+    $pdo->rollBack();
+    echo '<script>alert("Error al insertar datos: ' . $e->getMessage() . '"); window.location.href="../formularios/insertar_tarea.php";</script>';
+}
+
+// Cierra la conexión
+$pdo = null;
+?>
+```
+
+![alt image](Capturas/Insert.png)
+
+El update es muy similar
+
+*editar.php*
+
+```bash
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar Tarea</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../estilos/insertar.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5 mb-4">Editar Tarea</h1>
+        <form action="./crud/editardatos.php" method="POST"> 
+            <?php
+            // Archivos de conexión
+            include("./config/config.php");
+            include("./config/conexion.php");
+
+            $id = $_GET['id'];
+
+            try {
+                // Consultar la base de datos de la bbddd
+                $sql = "SELECT * FROM Tareas WHERE id = :id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($row) {
+            ?>
+            <div class="mb-3">
+                <label class="form-label">Título</label>
+                <input type="text" class="form-control" name="titulo" value="<?php echo htmlspecialchars($row['titulo']); ?>">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea class="form-control" name="descripcion" rows="3"><?php echo htmlspecialchars($row['descripcion']); ?></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fecha de creación</label>
+                <input type="date" class="form-control" name="fecha_creacion" value="<?php echo htmlspecialchars($row['fecha_creacion']); ?>">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fecha de vencimiento</label>
+                <input type="date" class="form-control" name="fecha_vencimiento" value="<?php echo htmlspecialchars($row['fecha_vencimiento']); ?>">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select class="form-select" name="estado">
+                    <?php
+                        // Consultar la base de datos para obtener los estados
+                        $sql_estados = "SELECT * FROM Estados";
+                        $stmt_estados = $pdo->query($sql_estados);
+                        while ($estado = $stmt_estados->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<option value='".$estado['id']."'";
+                            if ($estado['id'] == $row['estado_id']) {
+                                echo " selected";
+                            }
+                            echo ">".$estado['nombre']."</option>";
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fotocopiadora</label>
+                <select class="form-select" name="fotocopiadora_id">
+                    <?php
+                        // Consultar la base de datos para obtener los modelos de fotocopiadoras
+                        $sql_fotocopiadoras = "SELECT id, modelo FROM Fotocopiadora";
+                        $stmt_fotocopiadoras = $pdo->query($sql_fotocopiadoras);
+                        while ($fotocopiadora = $stmt_fotocopiadoras->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<option value="' . htmlspecialchars($fotocopiadora['id']) . '"';
+                            if ($fotocopiadora['id'] == $row['fotocopiadora_id']) {
+                                echo ' selected';
+                            }
+                            echo '>' . htmlspecialchars($fotocopiadora['modelo']) . '</option>';
+                        }
+                    ?>
+                </select>
+</div>
+            <div class="mb-3">
+                <label class="form-label">Técnico asignado</label>
+                <select class="form-select" name="tecnico_id">
+                    <?php
+                        // Consultar la base de datos para obtener los técnicos
+                        $sql_tecnicos = "SELECT * FROM usuarios";
+                        $stmt_tecnicos = $pdo->query($sql_tecnicos);
+                        while ($tecnico = $stmt_tecnicos->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<option value="' . htmlspecialchars($tecnico['id']) . '"';
+                            if ($tecnico['id'] == $row['tecnico_id']) {
+                                echo ' selected';
+                            }
+                            echo ">" . htmlspecialchars($tecnico['nombre'] . " " . $tecnico['apellido_1']) . "</option>";
+                    }
+                        ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fecha</label>
+                <input type="date" class="form-control" name="fecha" value="<?php echo isset($row['fecha']) ? htmlspecialchars($row['fecha']) : ''; ?>">
+            </div>
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <div class="container">
+                <button type="submit" class="btn btn-danger">Actualizar</button>
+                <a href="../index.php" class="btn btn-dark">Regresar</a>
+            </div>
+            <?php
+                } else {
+                    // Si no se encontraron datos, mostrar un mensaje de error
+                    echo "No se encontraron datos de la tarea para editar.";
+                }
+            } catch (PDOException $e) {
+                // Si hay un error en la consulta, mostrar el mensaje de error
+                echo "Error: " . $e->getMessage();
+            }
+            ?>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous>
+    <br>
+    <footer class="footer">
+        <div class="text-center">
+            <p>&copy; 2023 José Ramón Peris. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
+```
+
+*editardatos.php*
+
+```php
+<?php
+include("../config/config.php");
+include("../config/conexion.php");
+
+// Recoge los datos del formulario
+$id = $_POST['id'];
+$titulo = $_POST['titulo'];
+$descripcion = $_POST['descripcion'];
+$fecha_creacion = $_POST['fecha_creacion'];
+$fecha_vencimiento = $_POST['fecha_vencimiento'];
+$estado_id = isset($_POST['estado_id']) ? $_POST['estado_id'] : null;
+$fotocopiadora_id = $_POST['fotocopiadora_id'];
+$tecnico_id = $_POST['tecnico_id'];
+
+try {
+    $pdo->beginTransaction();
+
+    // Consulta para actualizar los datos en la tabla Tareas
+    $sql_update = "UPDATE Tareas SET 
+                  titulo = :titulo, 
+                  descripcion = :descripcion, 
+                  fecha_creacion = :fecha_creacion, 
+                  fecha_vencimiento = :fecha_vencimiento, 
+                  estado_id = :estado_id, 
+                  fotocopiadora_id = :fotocopiadora_id, 
+                  tecnico_id = :tecnico_id 
+                  WHERE id = :id";
+    $stmt_update = $pdo->prepare($sql_update);
+    $stmt_update->bindParam(':titulo', $titulo);
+    $stmt_update->bindParam(':descripcion', $descripcion);
+    $stmt_update->bindParam(':fecha_creacion', $fecha_creacion);
+    $stmt_update->bindParam(':fecha_vencimiento', $fecha_vencimiento);
+    $stmt_update->bindParam(':estado_id', $estado_id);
+    $stmt_update->bindParam(':fotocopiadora_id', $fotocopiadora_id);
+    $stmt_update->bindParam(':tecnico_id', $tecnico_id);
+    $stmt_update->bindParam(':id', $id);
+    $stmt_update->execute();
+
+    // Si funciona, guarda la transacción
+    $pdo->commit();
+    echo '<script>alert("Datos actualizados correctamente"); window.location.href="../index.php";</script>';
+} catch (PDOException $e) {
+    // Rollback en caso de error
+    $pdo->rollBack();
+    echo '<script>alert("Error al actualizar datos: ' . $e->getMessage() . '"); window.location.href="../editar.php?id='.$id.'";</script>';
+}
+
+// Cierra la conexión
+$pdo = null;
+?>
+```
+
+![alt image](Capturas/Editar.png)
+
+Y se termina con el eliminar
+
+*borrardatos.php*
+
+```bash
+<?php
+include("../config/conexion.php");
+include("../config/config.php");
+
+$id = $_GET['id'];
+
+try {
+    $pdo->beginTransaction();
+
+    // Inicia el borrado
+    $sql_tarea = "DELETE FROM Tareas WHERE id = :id";
+    $stmt_tarea = $pdo->prepare($sql_tarea);
+    $stmt_tarea->bindParam(':id', $id);
+    $stmt_tarea->execute();
+
+    // Confirma la acción
+    $pdo->commit();
+    echo '<script>alert("Tarea eliminada correctamente"); window.location.href="../index.php";</script>';
+} catch (PDOException $e) {
+    // Realiza un rollback para deshacer los cambios, en caso de fallo
+    $pdo->rollBack();
+    echo '<script>alert("Error al eliminar la tarea: ' . $e->getMessage() . '"); window.location.href="../index.php";</script>';
+}
+
+// Cierra la conexión
+$pdo = null;
+?>
+```
+
+Con esto terminaría está parte y el proyecto.
+
+## Conclusiones
+
+Llegamos al final del proyecto. Muchas gracias por haberlo seguido y espero que le sea de utlidad a quien lo pueda usar. Este proyecto tiene todavía muchas más opciones de agrandarlo con el objetivo de por ejemplo, automatizar tareas de despliegue. Cambiar el PHP por algun framework como Django o insertar un bot que haga de hombre en la DMZ... 
+
+Repito, muchas gracias por haberlo leído y espero que sigamos haciendo proyectos, más grandes y completos.
+
+                                                ¡Hasta luego!
